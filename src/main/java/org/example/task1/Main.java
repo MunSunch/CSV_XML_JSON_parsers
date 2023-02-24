@@ -8,7 +8,9 @@ import com.opencsv.bean.ColumnPositionMappingStrategy;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
@@ -20,10 +22,11 @@ public class Main
         String[] columnMapping = {"id", "firstName", "lastName", "country", "age"};
         String fileName = "./src/main/resources/data.csv";
         Class<? extends Employee> type = Employee.class;
+        String newFileName = "./src/main/resources/data.json";
         try {
             List<Employee> employees = parseCSV(columnMapping, fileName, type);
             String json = listToJson(employees);
-            System.out.println(json);
+            writeString(json, newFileName);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -42,9 +45,9 @@ public class Main
         CsvToBean<T> csvToBean = new CsvToBeanBuilder<T>(reader)
                 .withMappingStrategy(strategy)
                 .build();
-        List<T> employees = csvToBean.parse();
+        List<T> objects = csvToBean.parse();
         reader.close();
-        return employees;
+        return objects;
     }
 
 
@@ -54,5 +57,16 @@ public class Main
         Gson gson = builder.create();
         Type listType = new TypeToken<List<T>>() {}.getType();
         return gson.toJson(objects, listType);
+    }
+
+    private static void writeString(String string, String path) throws IOException{
+        File newFile = new File(path);
+        if(!newFile.exists()) {
+            newFile.createNewFile();
+        }
+        FileWriter writer = new FileWriter(newFile);
+        writer.write(string);
+        writer.flush();
+        writer.close();
     }
 }
