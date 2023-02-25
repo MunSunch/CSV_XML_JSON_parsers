@@ -51,15 +51,14 @@ public class Main
     }
 
 
-    private static <T> String listToJson(List<T> objects)
+    public static <T> String listToJson(List<T> objects)
     {
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
+        Gson gson = new GsonBuilder().create();
         Type listType = new TypeToken<List<T>>() {}.getType();
         return gson.toJson(objects, listType);
     }
 
-    private static void writeString(String string, String path) throws IOException{
+    public static void writeString(String string, String path) throws IOException{
         File newFile = new File(path);
         if(!newFile.exists()) {
             newFile.createNewFile();

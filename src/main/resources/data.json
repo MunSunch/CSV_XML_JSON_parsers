@@ -1,15 +1,16 @@
 [
   {
-    "age": 25,
-    "country": "USA",
-    "firstName": "John",
-    "id": 1,
-    "lastName": "Smith"
-  },
-  {
     "age": 23,
     "country": "RU",
     "firstName": "Ivan",
     "id": 2,
     "lastName": "Petrov"
-  }]
+  },
+  {
+    "age": 25,
+    "country": "USA",
+    "firstName": "John",
+    "id": 1,
+    "lastName": "Smith"
+  }
+]
